@@ -462,13 +462,17 @@ def profile():
     return render(content)
 
 # ============================================================
+# ИНИЦИАЛИЗАЦИЯ ПРИ ЗАПУСКЕ
+# ============================================================
+os.makedirs("avatars", exist_ok=True)
+default_avatar_path = "avatars/default.png"
+if not os.path.exists(default_avatar_path):
+    with open(default_avatar_path, "wb") as f:
+        f.write(b'\x89PNG\r\n\x1a\n')
+
+init_db()
+
 if __name__ == "__main__":
-    os.makedirs("avatars", exist_ok=True)
-    default_avatar_path = "avatars/default.png"
-    if not os.path.exists(default_avatar_path):
-        with open(default_avatar_path, "wb") as f:
-            f.write(b'\x89PNG\r\n\x1a\n')
-    init_db()
     print("SecureCorp Portal started")
     print("Internal use only")
     app.run(host="0.0.0.0", port=5000, debug=False)
