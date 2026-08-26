@@ -2,10 +2,10 @@ services:
   - type: web
     name: securecorp-vulnlab
     runtime: python
-    region: frankfurt  # можно frankfurt, oregon, singapore
+    region: frankfurt
     plan: free
-    buildCommand: "pip install -r requirements.txt"
-    startCommand: "gunicorn vulnlab:app --bind 0.0.0.0:$PORT"
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn vulnlab:app --bind 0.0.0.0:$PORT
     envVars:
       - key: FLASK_ENV
         value: production
@@ -13,7 +13,3 @@ services:
         generateValue: true
       - key: PYTHON_VERSION
         value: "3.11.0"
-    # Опционально: постоянный диск для SQLite (сохраняет БД между деплоями)
-envVars:
-  - key: DATABASE_PATH
-    value: "securecorp.db"
